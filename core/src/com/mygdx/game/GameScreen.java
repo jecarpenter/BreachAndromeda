@@ -42,6 +42,7 @@ public class GameScreen implements Screen {
     private float timeBetweenEnemySpawns = 2f;
     private float enemySpawnTimer = 0;
 
+
     //world parameters
     private final float WORLD_WIDTH = 100;
     private final float WORLD_HEIGHT = 130;
@@ -224,7 +225,7 @@ public class GameScreen implements Screen {
 
         if (enemySpawnTimer > timeBetweenEnemySpawns) {
             enemyShipList.add(
-                    new EnemyShip(10, 1,
+                    new EnemyShip(25, 1,
                             BreachAndromeda.random.nextFloat() * (WORLD_WIDTH - 10) + 5, WORLD_HEIGHT - 5, 10, 10,
                             4f, 15, 50, 0.8f,
                             enemyShipTextureRegion, enemyShieldTextureRegion, enemyLaserTextureRegion)
@@ -302,6 +303,7 @@ public class GameScreen implements Screen {
                 if (playerShip.hitAndCheckIfDestroyed(laser)){
                     explosionList.add(new Explosion(new Rectangle(playerShip.boundingBox), 1.5f));
                     playerShip.isAlive = false;
+                    playerShip.lives --;
                 }
                 laserListIterator.remove();
             }
@@ -433,5 +435,13 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
 
+    }
+
+    public float getWORLD_WIDTH() {
+        return WORLD_WIDTH;
+    }
+
+    public float getWORLD_HEIGHT() {
+        return WORLD_HEIGHT;
     }
 }

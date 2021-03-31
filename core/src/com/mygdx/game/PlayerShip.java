@@ -53,7 +53,6 @@ public class PlayerShip extends Ship {
             respawnTimer -= deltaTime;
             timeBetweenShots = 99;
             shipTextureRegion = deadShipRegion;
-            lives --;
         }
         if (respawnTimer <= 0 ){
             isAlive = true;
