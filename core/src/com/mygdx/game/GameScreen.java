@@ -99,9 +99,9 @@ public class GameScreen implements Screen {
 
 
         //setup game objects
-        playerShip = new PlayerShip(50, 3,
+        playerShip = new PlayerShip(45, 3,
                 WORLD_WIDTH / 2, WORLD_HEIGHT / 4, 10, 10,
-                4f, 15, 80, 0.4f,
+                4f, 15, 80, 0.5f,
                 playerShipTextureRegion, playerShieldTextureRegion, playerLaserTextureRegion);
 
         enemyShipList = new LinkedList<>();
@@ -301,8 +301,7 @@ public class GameScreen implements Screen {
                 //contact with player ship
                 if (playerShip.hitAndCheckIfDestroyed(laser)){
                     explosionList.add(new Explosion(new Rectangle(playerShip.boundingBox), 1.5f));
-                    playerShip.lives--;
-                    playerShip.shield = 3;
+                    playerShip.isAlive = false;
                 }
                 laserListIterator.remove();
             }

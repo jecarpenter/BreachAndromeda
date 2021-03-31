@@ -1,10 +1,15 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class PlayerShip extends Ship {
 
     int lives;
+    float respawnTimer;
+    boolean isAlive;
+    Texture deadShipTexture, aliveShipTexture;
+    TextureRegion deadShipRegion, aliveShipRegion;
 
     public PlayerShip(float movementSpeed, int shield, float xCentre, float yCentre,
                       float width, float height, float laserWidth, float laserHeight,
@@ -15,6 +20,13 @@ public class PlayerShip extends Ship {
                 laserWidth, laserHeight, laserMovementSpeed, timeBetweenShots,
                 shipTexture, shieldTexture, laserTextureRegion);
         lives = 3;
+        respawnTimer = 3f;
+        isAlive = true;
+
+        deadShipTexture = new Texture("deadShip.png");
+        deadShipRegion = new TextureRegion(deadShipTexture);
+        aliveShipTexture = new Texture("playership.png");
+        aliveShipRegion = new TextureRegion(aliveShipTexture);
     }
 
     @Override
@@ -30,8 +42,25 @@ public class PlayerShip extends Ship {
                 laserTextureRegion);
 
         timeSinceLastShot = 0;
-
         return laser;
     }
 
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        if (isAlive == false){
+            shield = 99;
+            respawnTimer -= deltaTime;
+            timeBetweenShots = 99;
+            shipTextureRegion = deadShipRegion;
+            lives --;
+        }
+        if (respawnTimer <= 0 ){
+            isAlive = true;
+            respawnTimer = 3;
+            shield = 3;
+            timeBetweenShots = 0.5f;
+            shipTextureRegion = aliveShipRegion;
+        }
+    }
 }
