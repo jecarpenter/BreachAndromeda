@@ -34,12 +34,12 @@ public class MenuScreen implements Screen {
     private final float WORLD_WIDTH = 100;
     private final float WORLD_HEIGHT = 130;
     private float backgroundHeight;
+    private Background background;
 
     //timing
-    private float[] backgroundOffsets = {0, 0, 0, 0,};
+    private float[] backgroundOffsets;
     private float backgroundMaxScrollingSpeed;
 
-    private TextureAtlas textureAtlas;
     private TextureRegion[] backgrounds;
 
     private Texture menuTitle;
@@ -61,24 +61,14 @@ public class MenuScreen implements Screen {
         stage = new Stage(viewport, batch);
 
         //background
-        textureAtlas = new TextureAtlas("BreachAndromeda.atlas");
+        background = new Background();
 
-        backgrounds = new TextureRegion[4];
-        backgrounds[0] = textureAtlas.findRegion("background1");
-        backgrounds[1] = textureAtlas.findRegion("background3");
-        backgrounds[2] = textureAtlas.findRegion("background4");
-        backgrounds[3] = textureAtlas.findRegion("background5");
+        background.setupBackground();
+        backgrounds = background.getBackgrounds();
+        backgroundMaxScrollingSpeed = background.getBackgroundMaxScrollingSpeed();
+        backgroundOffsets = background.getBackgroundOffsets();
 
-
-        backgroundHeight = WORLD_HEIGHT * 2;
-        backgroundMaxScrollingSpeed = (float) (WORLD_HEIGHT) / 4;
-
-        menuTitle = new Texture("Menu/BreachAndromedaTitle_small.png");
-
-        menuTitleSprite = new Sprite(menuTitle);
-        menuTitleSprite.setSize(100, 50);
-        menuTitleSprite.setPosition(2.5f, 80);
-
+        renderMenuTitle();
 
     }
 
@@ -88,14 +78,6 @@ public class MenuScreen implements Screen {
         //Stage should controll input:
         Gdx.input.setInputProcessor(stage);
 
-        //Create Table
-        Table mainTable = new Table();
-        //Set table to fill stage
-        mainTable.setFillParent(true);
-        //Set alignment of contents in the table.
-        mainTable.center();
-        mainTable.padTop(10);
-        mainTable.padLeft(40);
 
         //Create buttons
         TextButton startButton = new TextButton("Start", skin);
@@ -105,6 +87,10 @@ public class MenuScreen implements Screen {
         startButton.setTransform(true);
         instructionsButton.setTransform(true);
         exitButton.setTransform(true);
+
+        startButton.setPosition(36,50);
+        instructionsButton.setPosition(26.7f, 30);
+        exitButton.setPosition(38.4f, 10);
 
 
         startButton.scaleBy(-0.6f);
@@ -131,15 +117,13 @@ public class MenuScreen implements Screen {
             }
         });
 
-        //Add buttons to table
-        mainTable.add(startButton).pad(new Value.Fixed(10));
-        mainTable.row().height(10);
-        mainTable.add(instructionsButton).padLeft(27).padBottom(10);
-        mainTable.row().height(10);
-        mainTable.add(exitButton).padRight(10).padTop(10).padLeft(5.7f);
+
+
 
         //Add table to stage
-        stage.addActor(mainTable);
+        stage.addActor(startButton);
+        stage.addActor(instructionsButton);
+        stage.addActor(exitButton);
 
 
     }
@@ -161,11 +145,11 @@ public class MenuScreen implements Screen {
         batch.end();
     }
 
-    private void renderBackground(float delta){
-        backgroundOffsets[0] += delta * backgroundMaxScrollingSpeed / 8;
-        backgroundOffsets[3] += delta * backgroundMaxScrollingSpeed / 6;
-        backgroundOffsets[2] += delta * backgroundMaxScrollingSpeed / 3;
-        backgroundOffsets[1] += delta * backgroundMaxScrollingSpeed / 2;
+    private void renderBackground(float deltaTime){
+        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
+        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed / 6;
+        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 3;
+        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 2;
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++){
             if (backgroundOffsets[layer] > WORLD_HEIGHT) {
@@ -174,6 +158,14 @@ public class MenuScreen implements Screen {
             batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], WORLD_WIDTH, WORLD_HEIGHT);
             batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
         }
+    }
+
+    private void renderMenuTitle(){
+        menuTitle = new Texture("Menu/BreachAndromedaTitle_small.png");
+
+        menuTitleSprite = new Sprite(menuTitle);
+        menuTitleSprite.setSize(100, 50);
+        menuTitleSprite.setPosition(2.5f, 80);
     }
 
 

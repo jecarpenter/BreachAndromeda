@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -363,6 +364,9 @@ public class GameScreen implements Screen {
                     explosionList.add(new Explosion(new Rectangle(playerShip.boundingBox), 1.5f));
                     playerShip.isAlive = false;
                     playerShip.lives --;
+                    if (playerShip.lives < 0){
+                        ((Game)Gdx.app.getApplicationListener()).setScreen(new GameOverScreen());
+                    }
                 }
                 laserListIterator.remove();
             }

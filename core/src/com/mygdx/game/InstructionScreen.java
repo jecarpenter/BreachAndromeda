@@ -34,17 +34,17 @@ public class InstructionScreen implements Screen {
     //parameters
     private final float WORLD_WIDTH = 100;
     private final float WORLD_HEIGHT = 130;
-    private float backgroundHeight;
 
     //timing
-    private float[] backgroundOffsets = {0, 0, 0, 0,};
+    private float[] backgroundOffsets;
     private float backgroundMaxScrollingSpeed;
 
-    private TextureAtlas textureAtlas;
     private TextureRegion[] backgrounds;
 
     private Texture instructionsImage;
     private Sprite instructionsImageSprite;
+
+    private Background background;
 
     public InstructionScreen()
     {
@@ -62,17 +62,12 @@ public class InstructionScreen implements Screen {
         stage = new Stage(viewport, batch);
 
         //background
-        textureAtlas = new TextureAtlas("BreachAndromeda.atlas");
+        background = new Background();
 
-        backgrounds = new TextureRegion[4];
-        backgrounds[0] = textureAtlas.findRegion("background1");
-        backgrounds[1] = textureAtlas.findRegion("background3");
-        backgrounds[2] = textureAtlas.findRegion("background4");
-        backgrounds[3] = textureAtlas.findRegion("background5");
-
-
-        backgroundHeight = WORLD_HEIGHT * 2;
-        backgroundMaxScrollingSpeed = (float) (WORLD_HEIGHT) / 4;
+        background.setupBackground();
+        backgrounds = background.getBackgrounds();
+        backgroundMaxScrollingSpeed = background.getBackgroundMaxScrollingSpeed();
+        backgroundOffsets = background.getBackgroundOffsets();
 
         instructionsImage = new Texture("instructions.png");
 

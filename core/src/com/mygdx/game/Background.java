@@ -8,11 +8,8 @@ public class Background {
 
 
     private TextureAtlas textureAtlas;
-    private float backgroundHeight;
     private TextureRegion[] backgrounds;
     private final float WORLD_HEIGHT = 130;
-    private final float WORLD_WIDTH = 100;
-
     private float[] backgroundOffsets = {0, 0, 0, 0,};
     private float backgroundMaxScrollingSpeed;
 
@@ -28,7 +25,6 @@ public class Background {
         backgrounds[1] = textureAtlas.findRegion("background3");
         backgrounds[2] = textureAtlas.findRegion("background4");
         backgrounds[3] = textureAtlas.findRegion("background5");
-        backgroundHeight = WORLD_HEIGHT * 2;
         backgroundMaxScrollingSpeed = WORLD_HEIGHT / 4;
     }
 
