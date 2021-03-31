@@ -30,14 +30,13 @@ public class GameScreen implements Screen {
     //graphics declarations
     private SpriteBatch batch;
     private TextureAtlas textureAtlas;
-    private float backgroundHeight;
     private TextureRegion[] backgrounds;
     private TextureRegion playerShipTextureRegion, playerShieldTextureRegion, enemyShipTextureRegion,
             enemyShieldTextureRegion, playerLaserTextureRegion, enemyLaserTextureRegion;
 
     //timing
     //background timing
-    private float[] backgroundOffsets = {0, 0, 0, 0,};
+    private float[] backgroundOffsets;
     private float backgroundMaxScrollingSpeed;
 
     //enemy spawn timing
@@ -63,6 +62,8 @@ public class GameScreen implements Screen {
     BitmapFont font;
     float hudVerticalPadding, hudLeftX, hudRightX, hudCenterX, hudFirstRowY, hudSecondRowY, hudWidth;
 
+    Background background;
+
 
     GameScreen() {
         //built in camera class with the Orthographic camera provided in libGDX library.  This camera is the default
@@ -78,9 +79,16 @@ public class GameScreen implements Screen {
         //texture atlas file contains low latency file containing image data such as background images, sprites, etc
         textureAtlas = new TextureAtlas("BreachAndromeda.atlas");
 
-        setupBackground();
+        background = new Background();
+
+        background.setupBackground();
         setupHUD();
         setupTextures();
+
+
+        backgrounds = background.getBackgrounds();
+        backgroundMaxScrollingSpeed = background.getBackgroundMaxScrollingSpeed();
+        backgroundOffsets = background.getBackgroundOffsets();
 
 
         //setup game objects
@@ -383,16 +391,6 @@ public class GameScreen implements Screen {
         hudWidth = WORLD_WIDTH / 3;
     }
 
-    private void setupBackground() {
-        //setting up texture array with a size of 4, one index for each background layer
-        backgrounds = new TextureRegion[4];
-        backgrounds[0] = textureAtlas.findRegion("background1");
-        backgrounds[1] = textureAtlas.findRegion("background3");
-        backgrounds[2] = textureAtlas.findRegion("background4");
-        backgrounds[3] = textureAtlas.findRegion("background5");
-        backgroundHeight = WORLD_HEIGHT * 2;
-        backgroundMaxScrollingSpeed = (float) (WORLD_HEIGHT) / 4;
-    }
 
     private void setupTextures(){
         playerShipTextureRegion = textureAtlas.findRegion("playership");
