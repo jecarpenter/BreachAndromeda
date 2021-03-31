@@ -30,19 +30,19 @@ public class PlayerShip extends Ship {
     }
 
     @Override
-    public Laser[] fireLasers() {
-        Laser [] laser = new Laser[2];
-        laser[0] = new Laser(boundingBox.x + boundingBox.width * 0.125f, boundingBox.y,
+    public LaserLogic[] fireLasers() {
+        LaserLogic[] laserLogic = new LaserLogic[2];
+        laserLogic[0] = new LaserLogic(boundingBox.x + boundingBox.width * 0.125f, boundingBox.y,
                 laserWidth, laserHeight,
                 laserMovementSpeed,
                 laserTextureRegion);
-        laser[1] = new Laser(boundingBox.x + boundingBox.width * 0.875f, boundingBox.y,
+        laserLogic[1] = new LaserLogic(boundingBox.x + boundingBox.width * 0.875f, boundingBox.y,
                 laserWidth, laserHeight,
                 laserMovementSpeed,
                 laserTextureRegion);
 
         timeSinceLastShot = 0;
-        return laser;
+        return laserLogic;
     }
 
     @Override

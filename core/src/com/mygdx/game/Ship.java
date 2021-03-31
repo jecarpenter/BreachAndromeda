@@ -50,13 +50,13 @@ abstract class Ship {
         return result;
     }
 
-    public abstract Laser[] fireLasers();
+    public abstract LaserLogic[] fireLasers();
 
     public boolean intersects(Rectangle otherRectangle){
         return boundingBox.overlaps(otherRectangle);
     }
 
-    public boolean hitAndCheckIfDestroyed(Laser laser){
+    public boolean hitAndCheckIfDestroyed(LaserLogic laserLogic){
         if (shield > 0) {
             shield --;
             return false;
