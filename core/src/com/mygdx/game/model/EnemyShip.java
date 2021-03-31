@@ -1,8 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.BreachAndromeda;
 
 public class EnemyShip extends Ship {
 
@@ -49,7 +50,8 @@ public class EnemyShip extends Ship {
     @Override
     public LaserLogic[] fireLasers() {
         LaserLogic[] laserLogic = new LaserLogic[1];
-        laserLogic[0] = new LaserLogic(boundingBox.x + boundingBox.width * 0.500f, boundingBox.y - boundingBox.height,
+        laserLogic[0] = new LaserLogic(getBoundingBox().x + getBoundingBox().width * 0.500f,
+                getBoundingBox().y - getBoundingBox().height,
                 laserWidth, laserHeight,
                 laserMovementSpeed,
                 laserTextureRegion);
@@ -61,13 +63,14 @@ public class EnemyShip extends Ship {
 
     @Override
     public void draw(Batch batch){
-        batch.draw(shipTextureRegion, boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+        batch.draw(shipTextureRegion, getBoundingBox().x, getBoundingBox().y, getBoundingBox().width, getBoundingBox().height);
         if (shield > 0){
             //determining shield position and rendering if shield value is greater than 0
-            batch.draw(shieldTextureRegion, boundingBox.x - boundingBox.width * 0.20f,
-                    boundingBox.y - boundingBox.height * 0.25f,
-                    boundingBox.width * 1.5f, boundingBox.height * 1.5f);
+            batch.draw(shieldTextureRegion, getBoundingBox().x - getBoundingBox().width * 0.20f,
+                    getBoundingBox().y - getBoundingBox().height * 0.25f,
+                    getBoundingBox().width * 1.5f, getBoundingBox().height * 1.5f);
         }
     }
+
 
 }

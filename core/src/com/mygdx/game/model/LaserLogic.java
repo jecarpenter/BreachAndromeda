@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -26,4 +26,11 @@ public class LaserLogic {
         batch.draw(textureRegion, boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
     }
 
+    public Rectangle getBoundingBox() {
+        return boundingBox;
+    }
+
+    public float getMovementSpeed() {
+        return movementSpeed;
+    }
 }

@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,7 +11,7 @@ abstract class Ship {
     int shield;
 
     //position
-    Rectangle boundingBox;
+    private Rectangle boundingBox;
 
     //laser
     float laserWidth, laserHeight;
@@ -75,4 +75,15 @@ abstract class Ship {
         boundingBox.setPosition(boundingBox.x + xChange, boundingBox.y + yChange);
     }
 
+    public Rectangle getBoundingBox() {
+        return boundingBox;
+    }
+
+    public float getMovementSpeed() {
+        return movementSpeed;
+    }
+
+    public int getShield() {
+        return shield;
+    }
 }

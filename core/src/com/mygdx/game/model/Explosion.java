@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -16,7 +16,7 @@ public class Explosion {
 
     private TextureAtlas explosionAtlas = new TextureAtlas("explosion.atlas");
 
-    Explosion(Rectangle boundingBox, float totalAnimationTime){
+    public Explosion(Rectangle boundingBox, float totalAnimationTime){
         this.boundingBox = boundingBox;
 
         explosionAnimation = new Animation(totalAnimationTime / 7, explosionAtlas.findRegions("Explosion"));

@@ -1,13 +1,13 @@
-package com.mygdx.game;
+package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class PlayerShip extends Ship {
 
-    int lives;
-    float respawnTimer;
-    boolean isAlive;
+    private int lives;
+    private float respawnTimer;
+    private boolean isAlive;
     Texture deadShipTexture, aliveShipTexture;
     TextureRegion deadShipRegion, aliveShipRegion;
 
@@ -33,11 +33,11 @@ public class PlayerShip extends Ship {
     @Override
     public LaserLogic[] fireLasers() {
         LaserLogic[] laserLogic = new LaserLogic[2];
-        laserLogic[0] = new LaserLogic(boundingBox.x + boundingBox.width * 0.125f, boundingBox.y,
+        laserLogic[0] = new LaserLogic(getBoundingBox().x + getBoundingBox().width * 0.125f, getBoundingBox().y,
                 laserWidth, laserHeight,
                 laserMovementSpeed,
                 laserTextureRegion);
-        laserLogic[1] = new LaserLogic(boundingBox.x + boundingBox.width * 0.875f, boundingBox.y,
+        laserLogic[1] = new LaserLogic(getBoundingBox().x + getBoundingBox().width * 0.875f, getBoundingBox().y,
                 laserWidth, laserHeight,
                 laserMovementSpeed,
                 laserTextureRegion);
@@ -63,4 +63,21 @@ public class PlayerShip extends Ship {
             shipTextureRegion = aliveShipRegion;
         }
     }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
 }

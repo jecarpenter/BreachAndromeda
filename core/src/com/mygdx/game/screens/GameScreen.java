@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -16,6 +16,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.BreachAndromeda;
+import com.mygdx.game.model.*;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -66,7 +68,7 @@ public class GameScreen implements Screen {
     Background background;
 
 
-    GameScreen() {
+    public GameScreen() {
         //built in camera class with the Orthographic camera provided in libGDX library.  This camera is the default
         // for top down styles of games, so it will be what I will use here for breach andromeda.
         camera = new OrthographicCamera();
@@ -156,13 +158,13 @@ public class GameScreen implements Screen {
     private void moveEnemy(EnemyShip enemyShip, float deltaTime){
         float leftLimit, rightLimit, upLimit, downLimit;
 
-        leftLimit = -enemyShip.boundingBox.x;
-        downLimit = (float)WORLD_HEIGHT / 2 - enemyShip.boundingBox.y;
-        rightLimit = WORLD_WIDTH - enemyShip.boundingBox.x - enemyShip.boundingBox.width;
-        upLimit = WORLD_HEIGHT - enemyShip.boundingBox.y - enemyShip.boundingBox.height;
+        leftLimit = -enemyShip.getBoundingBox().x;
+        downLimit = (float)WORLD_HEIGHT / 2 - enemyShip.getBoundingBox().y;
+        rightLimit = WORLD_WIDTH - enemyShip.getBoundingBox().x - enemyShip.getBoundingBox().width;
+        upLimit = WORLD_HEIGHT - enemyShip.getBoundingBox().y - enemyShip.getBoundingBox().height;
 
-        float xMove = enemyShip.getDirection().x * enemyShip.movementSpeed * deltaTime;
-        float yMove = enemyShip.getDirection().y * enemyShip.movementSpeed * deltaTime;
+        float xMove = enemyShip.getDirection().x * enemyShip.getMovementSpeed() * deltaTime;
+        float yMove = enemyShip.getDirection().y * enemyShip.getMovementSpeed() * deltaTime;
 
         if (xMove > 0) xMove = Math.min(xMove, rightLimit);
         else xMove = Math.max(xMove, leftLimit);
@@ -191,31 +193,31 @@ public class GameScreen implements Screen {
     private void detectInput(float deltaTime){
         float leftLimit, rightLimit, upLimit, downLimit;
 
-        leftLimit = -playerShip.boundingBox.x;
-        downLimit = -playerShip.boundingBox.y;
-        rightLimit = WORLD_WIDTH - playerShip.boundingBox.x - playerShip.boundingBox.width;
-        upLimit = WORLD_HEIGHT / 2 - playerShip.boundingBox.y - playerShip.boundingBox.height;
+        leftLimit = -playerShip.getBoundingBox().x;
+        downLimit = -playerShip.getBoundingBox().y;
+        rightLimit = WORLD_WIDTH - playerShip.getBoundingBox().x - playerShip.getBoundingBox().width;
+        upLimit = WORLD_HEIGHT / 2 - playerShip.getBoundingBox().y - playerShip.getBoundingBox().height;
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && rightLimit > 0) {
-            float xChange = playerShip.movementSpeed * deltaTime;
+            float xChange = playerShip.getMovementSpeed() * deltaTime;
             xChange = Math.min(xChange, rightLimit);
             playerShip.translate(xChange, 0f);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && leftLimit < 0) {
-            float xChange = -playerShip.movementSpeed * deltaTime;
+            float xChange = -playerShip.getMovementSpeed() * deltaTime;
             xChange = Math.max(xChange, leftLimit);
             playerShip.translate(xChange, 0f);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && upLimit > 0) {
-            float yChange = playerShip.movementSpeed * deltaTime;
+            float yChange = playerShip.getMovementSpeed() * deltaTime;
             yChange = Math.min(yChange, upLimit);
             playerShip.translate(0f, yChange);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && downLimit < 0) {
-            float yChange = -playerShip.movementSpeed * deltaTime;
+            float yChange = -playerShip.getMovementSpeed() * deltaTime;
             yChange = Math.max(yChange, downLimit);
             playerShip.translate(0f, yChange);
         }
@@ -264,9 +266,9 @@ public class GameScreen implements Screen {
             LaserLogic laserLogic = iterator.next();
             laserLogic.draw(batch);
             //using speed * time to calculate position movement
-            laserLogic.boundingBox.y += laserLogic.movementSpeed * deltaTime;
+            laserLogic.getBoundingBox().y += laserLogic.getMovementSpeed() * deltaTime;
             //remove old lasers that exit the screen
-            if(laserLogic.boundingBox.y > WORLD_HEIGHT){
+            if(laserLogic.getBoundingBox().y > WORLD_HEIGHT){
                 iterator.remove();
             }
         }
@@ -277,9 +279,9 @@ public class GameScreen implements Screen {
             LaserLogic laserLogic = iterator.next();
             laserLogic.draw(batch);
             //using speed * time to calculate position movement
-            laserLogic.boundingBox.y -= laserLogic.movementSpeed * deltaTime;
+            laserLogic.getBoundingBox().y -= laserLogic.getMovementSpeed() * deltaTime;
             //remove old lasers that exit the screen
-            if(laserLogic.boundingBox.y + laserLogic.boundingBox.height < 0){
+            if(laserLogic.getBoundingBox().y + laserLogic.getBoundingBox().height < 0){
                 iterator.remove();
             }
         }
@@ -320,10 +322,10 @@ public class GameScreen implements Screen {
 
         font.draw(batch, String.format(Locale.getDefault(), "%06d", score), hudLeftX, hudSecondRowY, hudWidth,
                 Align.left, false);
-        font.draw(batch, String.format(Locale.getDefault(), "%02d", playerShip.shield), hudCenterX, hudSecondRowY,
+        font.draw(batch, String.format(Locale.getDefault(), "%02d", playerShip.getShield()), hudCenterX, hudSecondRowY,
                 hudWidth,
                 Align.center, false);
-        font.draw(batch, String.format(Locale.getDefault(), "%02d", playerShip.lives), hudRightX, hudSecondRowY,
+        font.draw(batch, String.format(Locale.getDefault(), "%02d", playerShip.getLives()), hudRightX, hudSecondRowY,
                 hudWidth,
                 Align.right, false);
     }
@@ -340,11 +342,11 @@ public class GameScreen implements Screen {
             ListIterator<EnemyShip> enemyShipListIterator = enemyShipList.listIterator();
             while (enemyShipListIterator.hasNext()) {
                 EnemyShip enemyShip = enemyShipListIterator.next();
-                if (enemyShip.intersects(laserLogic.boundingBox)){
+                if (enemyShip.intersects(laserLogic.getBoundingBox())){
                     //contact with enemy ship
                     if (enemyShip.hitAndCheckIfDestroyed(laserLogic)){
                         enemyShipListIterator.remove();
-                        explosionList.add(new Explosion(new Rectangle(enemyShip.boundingBox), 0.5f));
+                        explosionList.add(new Explosion(new Rectangle(enemyShip.getBoundingBox()), 0.5f));
                         score += 50;
                     }
                     enemyShip.hitAndCheckIfDestroyed(laserLogic);
@@ -358,13 +360,13 @@ public class GameScreen implements Screen {
         laserListIterator = enemyLaserLogicList.listIterator();
         while (laserListIterator.hasNext()) {
             LaserLogic laserLogic = laserListIterator.next();
-            if (playerShip.intersects(laserLogic.boundingBox)){
+            if (playerShip.intersects(laserLogic.getBoundingBox())){
                 //contact with player ship
                 if (playerShip.hitAndCheckIfDestroyed(laserLogic)){
-                    explosionList.add(new Explosion(new Rectangle(playerShip.boundingBox), 1.5f));
-                    playerShip.isAlive = false;
-                    playerShip.lives --;
-                    if (playerShip.lives < 0){
+                    explosionList.add(new Explosion(new Rectangle(playerShip.getBoundingBox()), 1.5f));
+                    playerShip.setAlive(false);
+                    playerShip.setLives(playerShip.getLives() - 1);
+                    if (playerShip.getLives() < 0){
                         ((Game)Gdx.app.getApplicationListener()).setScreen(new GameOverScreen());
                     }
                 }

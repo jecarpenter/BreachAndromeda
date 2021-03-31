@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,15 +13,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.model.Background;
 
-public class InstructionScreen implements Screen {
-
+public class GameOverScreen implements Screen {
     private SpriteBatch batch;
     protected Stage stage;
     private Viewport viewport;
@@ -34,6 +32,7 @@ public class InstructionScreen implements Screen {
     //parameters
     private final float WORLD_WIDTH = 100;
     private final float WORLD_HEIGHT = 130;
+    private Background background;
 
     //timing
     private float[] backgroundOffsets;
@@ -41,12 +40,10 @@ public class InstructionScreen implements Screen {
 
     private TextureRegion[] backgrounds;
 
-    private Texture instructionsImage;
-    private Sprite instructionsImageSprite;
+    private Texture gameOver;
+    private Sprite gameOverSprite;
 
-    private Background background;
-
-    public InstructionScreen()
+    public GameOverScreen()
     {
         atlas = new TextureAtlas("skin/neon-ui.atlas");
         skin = new Skin(Gdx.files.internal("skin/neon-ui.json"), atlas);
@@ -69,12 +66,7 @@ public class InstructionScreen implements Screen {
         backgroundMaxScrollingSpeed = background.getBackgroundMaxScrollingSpeed();
         backgroundOffsets = background.getBackgroundOffsets();
 
-        instructionsImage = new Texture("instructions.png");
-
-        instructionsImageSprite = new Sprite(instructionsImage);
-        instructionsImageSprite.setSize(100, 130);
-        instructionsImageSprite.setPosition(0, 0);
-
+        renderGameOver();
 
     }
 
@@ -84,25 +76,28 @@ public class InstructionScreen implements Screen {
         //Stage should controll input:
         Gdx.input.setInputProcessor(stage);
 
-        //Create Table
-        Table mainTable = new Table();
-        //Set table to fill stage
-        mainTable.setFillParent(true);
-        //Set alignment of contents in the table.
-        mainTable.center();
-        mainTable.padTop(10);
-        mainTable.padLeft(40);
 
         //Create buttons
-        TextButton menuButton = new TextButton("Main Menu", skin);
+        TextButton playAgainButton = new TextButton("Play Again", skin);
+        TextButton mainMenuButton = new TextButton("Main Menu", skin);
 
-        menuButton.setTransform(true);
+        playAgainButton.setTransform(true);
+        mainMenuButton.setTransform(true);
 
-        menuButton.scaleBy(-0.6f);
+        playAgainButton.setPosition(28, 30);
+        mainMenuButton.setPosition(28,5);
 
+        playAgainButton.scaleBy(-0.6f);
+        mainMenuButton.scaleBy(-0.6f);
 
         //Add listeners to buttons
-        menuButton.addListener(new ClickListener(){
+        playAgainButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+            }
+        });
+        mainMenuButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new MenuScreen());
@@ -110,11 +105,11 @@ public class InstructionScreen implements Screen {
         });
 
 
-        //Add buttons to table
-        mainTable.add(menuButton).padLeft(22).padTop(70);
-
         //Add table to stage
-        stage.addActor(mainTable);
+        stage.addActor(playAgainButton);
+        stage.addActor(mainMenuButton);
+
+
     }
 
     @Override
@@ -124,18 +119,21 @@ public class InstructionScreen implements Screen {
 
         batch.begin();
         renderBackground(delta);
-        instructionsImageSprite.draw(batch);
         batch.end();
 
         stage.act();
         stage.draw();
+
+        batch.begin();
+        gameOverSprite.draw(batch);
+        batch.end();
     }
 
-    private void renderBackground(float delta){
-        backgroundOffsets[0] += delta * backgroundMaxScrollingSpeed / 8;
-        backgroundOffsets[3] += delta * backgroundMaxScrollingSpeed / 6;
-        backgroundOffsets[2] += delta * backgroundMaxScrollingSpeed / 3;
-        backgroundOffsets[1] += delta * backgroundMaxScrollingSpeed / 2;
+    private void renderBackground(float deltaTime){
+        backgroundOffsets[0] += deltaTime * backgroundMaxScrollingSpeed / 8;
+        backgroundOffsets[3] += deltaTime * backgroundMaxScrollingSpeed / 6;
+        backgroundOffsets[2] += deltaTime * backgroundMaxScrollingSpeed / 3;
+        backgroundOffsets[1] += deltaTime * backgroundMaxScrollingSpeed / 2;
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++){
             if (backgroundOffsets[layer] > WORLD_HEIGHT) {
@@ -144,6 +142,14 @@ public class InstructionScreen implements Screen {
             batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer], WORLD_WIDTH, WORLD_HEIGHT);
             batch.draw(backgrounds[layer], 0, -backgroundOffsets[layer] + WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
         }
+    }
+
+    private void renderGameOver(){
+        gameOver = new Texture("GameOver.png");
+
+        gameOverSprite = new Sprite(gameOver);
+        gameOverSprite.setSize(100, 100);
+        gameOverSprite.setPosition(2.5f, 20);
     }
 
 

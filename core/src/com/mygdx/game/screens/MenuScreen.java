@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,14 +13,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.model.Background;
 
-public class GameOverScreen implements Screen {
+public class MenuScreen implements Screen {
     private SpriteBatch batch;
     protected Stage stage;
     private Viewport viewport;
@@ -41,10 +40,10 @@ public class GameOverScreen implements Screen {
 
     private TextureRegion[] backgrounds;
 
-    private Texture gameOver;
-    private Sprite gameOverSprite;
+    private Texture menuTitle;
+    private Sprite menuTitleSprite;
 
-    public GameOverScreen()
+    public MenuScreen()
     {
         atlas = new TextureAtlas("skin/neon-ui.atlas");
         skin = new Skin(Gdx.files.internal("skin/neon-ui.json"), atlas);
@@ -67,7 +66,7 @@ public class GameOverScreen implements Screen {
         backgroundMaxScrollingSpeed = background.getBackgroundMaxScrollingSpeed();
         backgroundOffsets = background.getBackgroundOffsets();
 
-        renderGameOver();
+        renderMenuTitle();
 
     }
 
@@ -79,36 +78,53 @@ public class GameOverScreen implements Screen {
 
 
         //Create buttons
-        TextButton playAgainButton = new TextButton("Play Again", skin);
-        TextButton mainMenuButton = new TextButton("Main Menu", skin);
+        TextButton startButton = new TextButton("Start", skin);
+        TextButton instructionsButton = new TextButton("Instructions", skin);
+        TextButton exitButton = new TextButton("Exit", skin);
 
-        playAgainButton.setTransform(true);
-        mainMenuButton.setTransform(true);
+        startButton.setTransform(true);
+        instructionsButton.setTransform(true);
+        exitButton.setTransform(true);
 
-        playAgainButton.setPosition(28, 30);
-        mainMenuButton.setPosition(28,5);
+        startButton.setPosition(36,50);
+        instructionsButton.setPosition(26.7f, 30);
+        exitButton.setPosition(38.4f, 10);
 
-        playAgainButton.scaleBy(-0.6f);
-        mainMenuButton.scaleBy(-0.6f);
+
+        startButton.scaleBy(-0.6f);
+        instructionsButton.scaleBy(-0.6f);
+        exitButton.scaleBy(-0.6f);
 
         //Add listeners to buttons
-        playAgainButton.addListener(new ClickListener(){
+        startButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+                dispose();
             }
         });
-        mainMenuButton.addListener(new ClickListener(){
+        instructionsButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new MenuScreen());
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new InstructionScreen());
+                dispose();
             }
         });
+        exitButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
+
+
 
 
         //Add table to stage
-        stage.addActor(playAgainButton);
-        stage.addActor(mainMenuButton);
+        stage.addActor(startButton);
+        stage.addActor(instructionsButton);
+        stage.addActor(exitButton);
 
 
     }
@@ -126,7 +142,7 @@ public class GameOverScreen implements Screen {
         stage.draw();
 
         batch.begin();
-        gameOverSprite.draw(batch);
+        menuTitleSprite.draw(batch);
         batch.end();
     }
 
@@ -145,12 +161,12 @@ public class GameOverScreen implements Screen {
         }
     }
 
-    private void renderGameOver(){
-        gameOver = new Texture("GameOver.png");
+    private void renderMenuTitle(){
+        menuTitle = new Texture("Menu/BreachAndromedaTitle_small.png");
 
-        gameOverSprite = new Sprite(gameOver);
-        gameOverSprite.setSize(100, 100);
-        gameOverSprite.setPosition(2.5f, 20);
+        menuTitleSprite = new Sprite(menuTitle);
+        menuTitleSprite.setSize(100, 50);
+        menuTitleSprite.setPosition(2.5f, 80);
     }
 
 
@@ -173,7 +189,8 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void hide() {
-
+        skin.dispose();
+        atlas.dispose();
     }
 
     @Override
