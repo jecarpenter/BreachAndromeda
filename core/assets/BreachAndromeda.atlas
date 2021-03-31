@@ -1,0 +1,83 @@
+
+BreachAndromeda.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+background1
+  rotate: false
+  xy: 2, 52
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+background2
+  rotate: false
+  xy: 1088, 52
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+background3
+  rotate: false
+  xy: 364, 52
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+background4
+  rotate: false
+  xy: 1450, 52
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+background5
+  rotate: false
+  xy: 726, 52
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+enemyRed
+  rotate: false
+  xy: 1812, 650
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemylaser
+  rotate: false
+  xy: 34, 34
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemyshield
+  rotate: false
+  xy: 2, 20
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+playerlaser
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playershield
+  rotate: false
+  xy: 1812, 668
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+playership
+  rotate: false
+  xy: 1838, 676
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
