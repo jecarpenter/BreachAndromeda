@@ -19,6 +19,7 @@ public class PlayerShip extends Ship {
         super(movementSpeed, shield, xCentre, yCentre, width, height,
                 laserWidth, laserHeight, laserMovementSpeed, timeBetweenShots,
                 shipTexture, shieldTexture, laserTextureRegion);
+
         lives = 3;
         respawnTimer = 3f;
         isAlive = true;

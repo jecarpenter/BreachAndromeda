@@ -102,12 +102,14 @@ public class MenuScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+                dispose();
             }
         });
         instructionsButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game)Gdx.app.getApplicationListener()).setScreen(new InstructionScreen());
+                dispose();
             }
         });
         exitButton.addListener(new ClickListener(){
@@ -116,6 +118,7 @@ public class MenuScreen implements Screen {
                 Gdx.app.exit();
             }
         });
+
 
 
 
@@ -188,7 +191,8 @@ public class MenuScreen implements Screen {
 
     @Override
     public void hide() {
-
+        skin.dispose();
+        atlas.dispose();
     }
 
     @Override
