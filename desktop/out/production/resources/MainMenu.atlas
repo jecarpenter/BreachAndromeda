@@ -1,0 +1,55 @@
+
+MainMenu.png
+size: 2048, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+BreachAndromedaTitle
+  rotate: false
+  xy: 2, 93
+  size: 680, 347
+  orig: 680, 347
+  offset: 0, 0
+  index: -1
+Exit
+  rotate: false
+  xy: 1080, 219
+  size: 370, 221
+  orig: 370, 221
+  offset: 0, 0
+  index: -1
+ExitHovered
+  rotate: false
+  xy: 684, 212
+  size: 394, 228
+  orig: 394, 228
+  offset: 0, 0
+  index: -1
+Instructions
+  rotate: false
+  xy: 1080, 2
+  size: 354, 215
+  orig: 354, 215
+  offset: 0, 0
+  index: -1
+InstructionsHovered
+  rotate: false
+  xy: 1452, 30
+  size: 355, 202
+  orig: 355, 202
+  offset: 0, 0
+  index: -1
+Start
+  rotate: false
+  xy: 1452, 234
+  size: 369, 206
+  orig: 369, 206
+  offset: 0, 0
+  index: -1
+StartHovered
+  rotate: false
+  xy: 684, 11
+  size: 357, 199
+  orig: 357, 199
+  offset: 0, 0
+  index: -1

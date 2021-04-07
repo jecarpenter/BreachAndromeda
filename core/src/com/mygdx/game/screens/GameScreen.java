@@ -128,7 +128,7 @@ public class GameScreen implements Screen {
         ListIterator<EnemyShip> enemyShipListIterator = enemyShipList.listIterator();
         while (enemyShipListIterator.hasNext()) {
             EnemyShip enemyShip = enemyShipListIterator.next();
-            moveEnemy(enemyShip, deltaTime);
+            moveEnemyShip(enemyShip, deltaTime);
             enemyShip.update(deltaTime);
 
             //draw enemy ships
@@ -155,22 +155,22 @@ public class GameScreen implements Screen {
     }
 
 
-    private void moveEnemy(EnemyShip enemyShip, float deltaTime){
-        float leftLimit, rightLimit, upLimit, downLimit;
+    private void moveEnemyShip(EnemyShip enemyShip, float deltaTime){
+        float limitLeft, limitRight, limitUp, limitDown;
 
-        leftLimit = -enemyShip.getBoundingBox().x;
-        downLimit = (float)WORLD_HEIGHT / 2 - enemyShip.getBoundingBox().y;
-        rightLimit = WORLD_WIDTH - enemyShip.getBoundingBox().x - enemyShip.getBoundingBox().width;
-        upLimit = WORLD_HEIGHT - enemyShip.getBoundingBox().y - enemyShip.getBoundingBox().height;
+        limitLeft = -enemyShip.getBoundingBox().x;
+        limitDown = (float)WORLD_HEIGHT / 2 - enemyShip.getBoundingBox().y;
+        limitRight = WORLD_WIDTH - enemyShip.getBoundingBox().x - enemyShip.getBoundingBox().width;
+        limitUp = WORLD_HEIGHT - enemyShip.getBoundingBox().y - enemyShip.getBoundingBox().height;
 
         float xMove = enemyShip.getDirection().x * enemyShip.getMovementSpeed() * deltaTime;
         float yMove = enemyShip.getDirection().y * enemyShip.getMovementSpeed() * deltaTime;
 
-        if (xMove > 0) xMove = Math.min(xMove, rightLimit);
-        else xMove = Math.max(xMove, leftLimit);
+        if (xMove > 0) xMove = Math.min(xMove, limitRight);
+        else xMove = Math.max(xMove, limitLeft);
 
-        if (yMove > 0) yMove = Math.min(yMove, upLimit);
-        else yMove = Math.max(yMove, downLimit);
+        if (yMove > 0) yMove = Math.min(yMove, limitUp);
+        else yMove = Math.max(yMove, limitDown);
 
         enemyShip.translate(xMove, yMove);
     }

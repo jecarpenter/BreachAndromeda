@@ -1,0 +1,118 @@
+
+images.png
+size: 1024, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Enemyship
+  rotate: false
+  xy: 0, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+Enemyship-export
+  rotate: false
+  xy: 888, 1936
+  size: 112, 112
+  orig: 112, 112
+  offset: 0, 0
+  index: -1
+background1
+  rotate: false
+  xy: 0, 1408
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+background2
+  rotate: false
+  xy: 360, 768
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+background3
+  rotate: false
+  xy: 0, 768
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+background4
+  rotate: false
+  xy: 360, 128
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+background5
+  rotate: false
+  xy: 360, 1408
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+backgroundIdea
+  rotate: false
+  xy: 0, 128
+  size: 360, 640
+  orig: 360, 640
+  offset: 0, 0
+  index: -1
+enemylaser
+  rotate: false
+  xy: 32, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+enemylaser-export
+  rotate: false
+  xy: 0, 16
+  size: 112, 112
+  orig: 112, 112
+  offset: 0, 0
+  index: -1
+playerlaser
+  rotate: false
+  xy: 16, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playerlaser-export
+  rotate: false
+  xy: 720, 1768
+  size: 112, 112
+  orig: 112, 112
+  offset: 0, 0
+  index: -1
+playershield
+  rotate: false
+  xy: 1000, 2024
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+playershield-export
+  rotate: false
+  xy: 720, 1880
+  size: 168, 168
+  orig: 168, 168
+  offset: 0, 0
+  index: -1
+playership
+  rotate: false
+  xy: 48, 0
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+playership-export
+  rotate: false
+  xy: 112, 16
+  size: 112, 112
+  orig: 112, 112
+  offset: 0, 0
+  index: -1

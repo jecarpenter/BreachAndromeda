@@ -125,8 +125,6 @@ public class MenuScreen implements Screen {
         stage.addActor(startButton);
         stage.addActor(instructionsButton);
         stage.addActor(exitButton);
-
-
     }
 
     @Override
